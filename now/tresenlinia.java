@@ -1,4 +1,4 @@
-<--! no esta acabado i falta modificar la base de datos-->
+<--! no esta acabado i falta modificar la base de datos i no te he puesto ni paquete ni java-->
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
