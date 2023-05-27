@@ -1,3 +1,4 @@
+<--! no esta acabado i falta modificar la base de datos-->
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
