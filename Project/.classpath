@@ -16,7 +16,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Joan/Documents/IES CASTELLET/M3 Programació/Eclipse Workspace/javafx-sdk-20.0.1/lib/javafx.fxml.jar" rootpath="." sourcepath="C:/Users/Joan/Documents/IES CASTELLET/M3 Programació/Eclipse Workspace/javafx-sdk-20.0.1/lib/src.zip">
+	<classpathentry kind="lib" path="C:/Users/Joan/Documents/IES CASTELLET/M3 Programació/Eclipse Workspace/javafx-sdk-20.0.1/lib/javafx.fxml.jar" sourcepath="C:/Users/Joan/Documents/IES CASTELLET/M3 Programació/Eclipse Workspace/javafx-sdk-20.0.1/lib/src.zip">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
@@ -25,6 +25,11 @@
 			<accessrule kind="discouraged" pattern="com/sun/*"/>
 			<accessrule kind="discouraged" pattern="netscape/javascript/*"/>
 		</accessrules>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
