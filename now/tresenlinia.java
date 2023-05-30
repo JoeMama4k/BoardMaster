@@ -131,9 +131,10 @@ public class TresEnRatlla extends Application {
     }
 }
 
-
-
-///_________________________________________\\\
+<--!
+en el seguent codi cal ferlo amb javafx i conectarlo amb la base de dades (mb els seguents dedes Host: sql7.freesqldatabase.com, Database name: sql7622471, Database user: sql7622471, Database password: sEPS2ywYQW, Port number: 3306, Account number: 774799)
+tabe cal posar una bariable amb una imatge que representara la x i la o per el sibol dels jugadors. per ultim neteja el codi no utilitzat.
+    ///_________________________________________\\\
 package tasca2_metodes;
 
 import java.util.Scanner;
@@ -355,3 +356,4 @@ public class Metodes3_3 {
   }
 }
 
+-->
