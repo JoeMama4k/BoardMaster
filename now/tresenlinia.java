@@ -6,127 +6,166 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import java.sql.*;
-public class TresEnRatlla extends Application {
-    private Button[][] caselles;
-    private int torn;
-    private Connection conn;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class TicTacToe extends Application {
+    private Button[][] cells;
+    private char currentPlayer;
+    private boolean gameOver;
+    private Connection connection;
+
     public static void main(String[] args) {
         launch(args);
     }
+
     @Override
     public void start(Stage primaryStage) {
-        caselles = new Button[3][3];
-        torn = 1;
-        GridPane gridPane = crearTauler();
-        connectarBaseDades();
-        Scene scene = new Scene(gridPane, 300, 300);
-        primaryStage.setTitle("Tres en Ratlla");
-        primaryStage.setScene(scene);
+        cells = new Button[3][3];
+        currentPlayer = 'X';
+        gameOver = false;
+
+        GridPane gridPane = createGridPane();
+        addButtonsToGrid(gridPane);
+
+        connectToDatabase();
+
+        primaryStage.setTitle("Tic Tac Toe");
+        primaryStage.setScene(new Scene(gridPane, 300, 300));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
-    private GridPane crearTauler() {
+
+    private GridPane createGridPane() {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        for (int fila = 0; fila < 3; fila++) {
-            for (int columna = 0; columna < 3; columna++) {
-                Button casella = new Button();
-                casella.setMinSize(100, 100);
-                casella.setOnAction(e -> marcarCasella(casella));
-                caselles[fila][columna] = casella;
-                gridPane.add(casella, columna, fila);
-            }
-        }
+        gridPane.setHgap(5);
+        gridPane.setVgap(5);
         return gridPane;
     }
-    private void marcarCasella(Button casella) {
-        if (!casella.getText().isEmpty()) {
+
+    private void addButtonsToGrid(GridPane gridPane) {
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                Button button = createButton(row, col);
+                gridPane.add(button, col, row);
+                cells[row][col] = button;
+            }
+        }
+    }
+
+    private Button createButton(int row, int col) {
+        Button button = new Button();
+        button.setPrefSize(100, 100);
+        button.setOnAction(e -> makeMove(row, col));
+        return button;
+    }
+
+    private void makeMove(int row, int col) {
+        if (gameOver || !cells[row][col].getText().isEmpty()) {
             return;
         }
-        int fila = GridPane.getRowIndex(casella);
-        int columna = GridPane.getColumnIndex(casella);
 
-        if (torn == 1) {
-            casella.setText("X");
+        cells[row][col].setText(Character.toString(currentPlayer));
+        if (checkWin(row, col)) {
+            gameOver = true;
+            showResult("Player " + currentPlayer + " wins!");
+            saveGameResult(currentPlayer);
+        } else if (checkTie()) {
+            gameOver = true;
+            showResult("It's a tie!");
+            saveGameResult(' ');
         } else {
-            casella.setText("O");
-        }
-        if (comprovarGuanyador(fila, columna)) {
-            mostrarAlerta("Guanyador", "Jugador " + torn + " ha guanyat!");
-            reiniciarJoc();
-        } else if (comprovarEmpat()) {
-            mostrarAlerta("Empat", "El joc ha acabat en empat.");
-            reiniciarJoc();
-        } else {
-            torn = (torn == 1) ? 2 : 1;
+            currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
         }
     }
-    private boolean comprovarGuanyador(int fila, int columna) {
-        String marca = (torn == 1) ? "X" : "O";
-        // Comprovar fila
-        if (caselles[fila][0].getText().equals(marca) && caselles[fila][1].getText().equals(marca) && caselles[fila][2].getText().equals(marca)) {
+
+    private boolean checkWin(int row, int col) {
+        String mark = Character.toString(currentPlayer);
+
+        // Check row
+        if (cells[row][0].getText().equals(mark) &&
+                cells[row][1].getText().equals(mark) &&
+                cells[row][2].getText().equals(mark)) {
             return true;
         }
-        // Comprovar columna
-        if (caselles[0][columna].getText().equals(marca) && caselles[1][columna].getText().equals(marca) && caselles[2][columna].getText().equals(marca)) {
+
+        // Check column
+        if (cells[0][col].getText().equals(mark) &&
+                cells[1][col].getText().equals(mark) &&
+                cells[2][col].getText().equals(mark)) {
             return true;
         }
-        // Comprovar diagonals
-        if (caselles[0][0].getText().equals(marca) &&  caselles[1][1].getText().equals(marca) && caselles[2][2].getText().equals(marca)) {
+
+        // Check diagonals
+        if (cells[0][0].getText().equals(mark) &&
+                cells[1][1].getText().equals(mark) &&
+                cells[2][2].getText().equals(mark)) {
             return true;
         }
-        if (caselles[0][2].getText().equals(marca) && caselles[1][1].getText().equals(marca) && caselles[2][0].getText().equals(marca)) {
+
+        if (cells[0][2].getText().equals(mark) &&
+                cells[1][1].getText().equals(mark) &&
+                cells[2][0].getText().equals(mark)) {
             return true;
         }
+
         return false;
     }
-    private boolean comprovarEmpat() {
-        for (Button[] fila : caselles) {
-            for (Button casella : fila) {
-                if (casella.getText().isEmpty()) {
+
+    private boolean checkTie() {
+        for (Button[] row : cells) {
+            for (Button cell : row) {
+                if (cell.getText().isEmpty()) {
                     return false;
                 }
             }
         }
         return true;
     }
-    private void reiniciarJoc() {
-        for (Button[] fila : caselles) {
-            for (Button casella : fila) {
-                casella.setText("");
-            }
-        }
-    }
-    private void connectarBaseDades() {
-        String url = "jdbc:mariadb://localhost:3306/nom_de_la_base_dades";
-        String usuari = "usuari";
-        String contrasenya = "contrasenya";
 
-        try {
-            conn = DriverManager.getConnection(url, usuari, contrasenya);
-            System.out.println("Connexió a la base de dades establerta.");
-        } catch (SQLException e) {
-            System.err.println("Error en connectar a la base de dades: " + e.getMessage());
-        }
-    }
-    private void mostrarAlerta(String titol, String missatge) {
+    private void showResult(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titol);
+        alert.setTitle("Game Over");
         alert.setHeaderText(null);
-        alert.setContentText(missatge);
+        alert.setContentText(message);
         alert.showAndWait();
     }
-    @Override
-    public void stop() {
+
+    private void connectToDatabase() {
+        String host = "sql7.freesqldatabase.com";
+        String databaseName = "sql7622471";
+        String username = "sql7622471";
+        String password = "sEPS2ywYQW";
+        int port = 3306;
+
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + databaseName;
+
         try {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
-                System.out.println("Connexió a la base de dades tancada.");
-            }
+            connection = DriverManager.getConnection(url, username, password);
+            System.out.println("Connected to the database.");
         } catch (SQLException e) {
-            System.err.println("Error en tancar la connexió a la base de dades: " + e.getMessage());
+            System.out.println("Failed to connect to the database.");
+            e.printStackTrace();
+        }
+    }
+
+    private void saveGameResult(char winner) {
+        if (connection != null) {
+            try {
+                String query = "INSERT INTO game_results (winner) VALUES (?)";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, String.valueOf(winner));
+                statement.executeUpdate();
+                statement.close();
+                System.out.println("Game result saved to the database.");
+            } catch (SQLException e) {
+                System.out.println("Failed to save game result to the database.");
+                e.printStackTrace();
+            }
         }
     }
 }
