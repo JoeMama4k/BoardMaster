@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.games.TicTacToeController">
+   <children>
+      <Text layoutX="427.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tic-Tac-Toe" textAlignment="CENTER" wrappingWidth="245.49761962890625">
+         <font>
+            <Font name="Source Sans Pro Bold" size="42.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="576.0" fitWidth="700.0" layoutX="190.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/games/tictactoe/tic-tac-toe_board.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="a1" fitHeight="165.0" fitWidth="203.0" layoutX="207.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fx:id="a2" fitHeight="165.0" fitWidth="203.0" layoutX="207.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fx:id="a3" fitHeight="165.0" fitWidth="203.0" layoutX="207.0" layoutY="555.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fx:id="b2" fitHeight="165.0" fitWidth="203.0" layoutX="448.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fx:id="b1" fitHeight="165.0" fitWidth="203.0" layoutX="448.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fx:id="c1" fitHeight="165.0" fitWidth="203.0" layoutX="687.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fx:id="b3" fitHeight="165.0" fitWidth="203.0" layoutX="448.0" layoutY="555.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fx:id="c2" fitHeight="165.0" fitWidth="203.0" layoutX="687.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fx:id="c3" fitHeight="165.0" fitWidth="203.0" layoutX="687.0" layoutY="555.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fitHeight="69.0" fitWidth="83.0" layoutX="42.0" layoutY="36.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/back_arrow.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

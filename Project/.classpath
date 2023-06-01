@@ -31,5 +31,25 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Joan/Documents/IES CASTELLET/M3 Programació/Eclipse Workspace/javafx-sdk-20.0.1/lib/javafx.graphics.jar" rootpath="." sourcepath="C:/Users/Joan/Documents/IES CASTELLET/M3 Programació/Eclipse Workspace/javafx-sdk-20.0.1/lib/src.zip">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+		<accessrules>
+			<accessrule kind="accessible" pattern="javafx/*"/>
+			<accessrule kind="discouraged" pattern="com/sun/*"/>
+			<accessrule kind="discouraged" pattern="netscape/javascript/*"/>
+		</accessrules>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Joan/Documents/IES CASTELLET/M3 Programació/Eclipse Workspace/javafx-sdk-20.0.1/lib/javafx.controls.jar" rootpath="." sourcepath="C:/Users/Joan/Documents/IES CASTELLET/M3 Programació/Eclipse Workspace/javafx-sdk-20.0.1/lib/src.zip">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+		<accessrules>
+			<accessrule kind="accessible" pattern="javafx/*"/>
+			<accessrule kind="discouraged" pattern="com/sun/*"/>
+			<accessrule kind="discouraged" pattern="netscape/javascript/*"/>
+		</accessrules>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

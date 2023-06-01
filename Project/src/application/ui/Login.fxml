@@ -7,10 +7,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="497.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="497.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.LoginController">
    <children>
       <Text fx:id="forgotPassword" fill="#004fff" layoutX="247.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgot your password?" />
       <TextField fx:id="emailField" layoutX="234.0" layoutY="249.0" promptText="Email/Username">
@@ -25,10 +26,10 @@
       </Text>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="233.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Icon.png" />
+            <Image url="@../images/Icon.png" />
          </image>
       </ImageView>
-      <Button fx:id="loginButton" layoutX="233.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleLoginButtonClicked" prefHeight="33.0" prefWidth="70.0" text="Login" textFill="WHITE">
+      <Button fx:id="loginButton" layoutX="233.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleLoginButtonClicked" prefHeight="33.0" prefWidth="70.0" style="-fx-background-color: purple;" text="Login" textFill="WHITE">
          <font>
             <Font name="Source Sans Pro" size="16.0" />
          </font>
@@ -37,10 +38,21 @@
          <tooltip>
             <Tooltip text="Enter your password" />
          </tooltip></PasswordField>
-      <Button fx:id="signInButton" layoutX="313.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleSignUpButtonClicked" prefHeight="33.0" prefWidth="70.0" text="Sign Up" textFill="WHITE">
+      <Button fx:id="signInButton" layoutX="313.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleSignUpButtonClicked" prefHeight="33.0" prefWidth="70.0" style="-fx-background-color: purple;" text="Sign Up" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
+      <StackPane disable="true" layoutX="208.0" layoutY="165.0" prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <Text fx:id="errorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" />
+         </children>
+      </StackPane>
+      <ImageView fx:id="eye" fitHeight="59.0" fitWidth="36.0" layoutX="384.0" layoutY="282.0" onMousePressed="#showPassword" onMouseReleased="#hidePassword" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Password-Eye.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="clearTextPassword" layoutX="234.0" layoutY="289.0" visible="false" />
    </children>
 </Pane>

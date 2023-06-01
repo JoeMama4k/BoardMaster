@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="497.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.SignUpController">
+   <children>
+      <TextField fx:id="emailField" layoutX="234.0" layoutY="249.0" promptText="Email">
+         <tooltip>
+            <Tooltip text="Enter your email" />
+         </tooltip>
+      </TextField>
+      <Text layoutX="239.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP" textAlignment="CENTER" wrappingWidth="139.09765625">
+         <font>
+            <Font name="Source Sans Pro Bold" size="36.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="233.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Icon.png" />
+         </image>
+      </ImageView>
+      <PasswordField fx:id="passwordField" layoutX="234.0" layoutY="317.0" promptText="Password">
+         <tooltip>
+            <Tooltip text="Enter your password" />
+         </tooltip></PasswordField>
+      <Button layoutX="233.0" layoutY="392.0" mnemonicParsing="false" onAction="#handleSignUpButtonClicked" prefHeight="33.0" prefWidth="70.0" style="-fx-background-color: purple;" text="Sign Up" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <PasswordField fx:id="passwordField2" layoutX="234.0" layoutY="350.0" promptText="Confirm Password">
+         <tooltip>
+            <Tooltip text="Enter your password" />
+         </tooltip>
+      </PasswordField>
+      <TextField fx:id="usernameField" layoutX="234.0" layoutY="284.0" promptText="Username">
+         <tooltip>
+            <Tooltip text="Enter your username (max 16 characters)" />
+         </tooltip>
+      </TextField>
+      <Button layoutX="313.0" layoutY="392.0" mnemonicParsing="false" onAction="#handleLoginButtonClicked" prefHeight="33.0" prefWidth="70.0" style="-fx-background-color: purple;" text="Login" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <StackPane disable="true" layoutX="208.0" layoutY="165.0" prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <Text fx:id="errorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" />
+         </children>
+      </StackPane>
+      <ImageView fx:id="eye2" fitHeight="59.0" fitWidth="36.0" layoutX="383.0" layoutY="343.0" onMousePressed="#showPassword2" onMouseReleased="#hidePassword2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Password-Eye.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="eye" fitHeight="59.0" fitWidth="36.0" layoutX="383.0" layoutY="312.0" onMousePressed="#showPassword1" onMouseReleased="#hidePassword1" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Password-Eye.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="clearTextPassword" layoutX="234.0" layoutY="317.0" visible="false" />
+      <TextField fx:id="clearTextPassword2" layoutX="234.0" layoutY="350.0" visible="false" />
+   </children>
+</Pane>
