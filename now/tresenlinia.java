@@ -87,29 +87,21 @@ public class TicTacToe extends Application {
         String mark = Character.toString(currentPlayer);
 
         // Check row
-        if (cells[row][0].getText().equals(mark) &&
-                cells[row][1].getText().equals(mark) &&
-                cells[row][2].getText().equals(mark)) {
+        if (cells[row][0].getText().equals(mark) && cells[row][1].getText().equals(mark) && cells[row][2].getText().equals(mark)) {
             return true;
         }
 
         // Check column
-        if (cells[0][col].getText().equals(mark) &&
-                cells[1][col].getText().equals(mark) &&
-                cells[2][col].getText().equals(mark)) {
+        if (cells[0][col].getText().equals(mark) && cells[1][col].getText().equals(mark) && cells[2][col].getText().equals(mark)) {
             return true;
         }
 
         // Check diagonals
-        if (cells[0][0].getText().equals(mark) &&
-                cells[1][1].getText().equals(mark) &&
-                cells[2][2].getText().equals(mark)) {
+        if (cells[0][0].getText().equals(mark) && cells[1][1].getText().equals(mark) && cells[2][2].getText().equals(mark)) {
             return true;
         }
 
-        if (cells[0][2].getText().equals(mark) &&
-                cells[1][1].getText().equals(mark) &&
-                cells[2][0].getText().equals(mark)) {
+        if (cells[0][2].getText().equals(mark) &&  cells[1][1].getText().equals(mark) && cells[2][0].getText().equals(mark)) {
             return true;
         }
 
