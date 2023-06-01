@@ -1,10 +1,7 @@
 package application.controllers;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import application.DatabaseManager;
-import application.UIManager;
+import application.managers.LoginManager;
+import application.managers.UIManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -14,103 +11,96 @@ import javafx.scene.text.Text;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
+/**
+ * Controller class for the Login view.
+ */
 public class LoginController {
 
-	@FXML
-	private TextField emailField;
+    @FXML
+    private TextField emailField;
 
-	@FXML
-	private Pane pane;
-	
-	@FXML
-	private ImageView eye;
-	
-	@FXML
-	private TextField clearTextPassword;
+    @FXML
+    private Pane pane;
 
-	@FXML
-	private PasswordField passwordField;
+    @FXML
+    private ImageView eye;
 
-	@FXML
-	private Text errorText;
+    @FXML
+    private TextField clearTextPassword;
 
-	private UIManager uiManager;
-	
-	private ColorAdjust colorAdjust;
+    @FXML
+    private PasswordField passwordField;
 
+    @FXML
+    private Text errorText;
 
-	public void setUIManager(UIManager uiManager) {
-		this.uiManager = uiManager;
-		// Add an event handler to the pane to allow use of ENTER
-		pane.setOnKeyPressed(event -> {
-			if (event.getCode() == KeyCode.ENTER) {
-				handleLoginButtonClicked();
-			}
-		});
-		
-		// Set up the color adjustment effect to make the eye darker
-				colorAdjust = new ColorAdjust();
-		        colorAdjust.setBrightness(-0.5);
-	}
+    private UIManager uiManager;
 
-	@FXML
-	private void handleLoginButtonClicked() {
-		String email = emailField.getText();
-		String password = passwordField.getText();
+    private ColorAdjust colorAdjust;
 
-		if (email.isEmpty() || password.isEmpty()) {
-			System.out.println("Please enter both email and password.");
-			errorText.setText("Please enter both email and password.");
-		} else {
-			try {
-				// Prepare the SQL query with parameters
-				String sql = "SELECT * FROM Users WHERE (Email = ? OR Username = ?) AND Password = ?";
-				PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(sql);
-				statement.setString(1, email);
-				statement.setString(2, email);
-				statement.setString(3, DatabaseManager.encryptPassword(password));
+    /**
+     * Sets the UI manager for the controller.
+     *
+     * @param uiManager the UI manager to be set
+     */
+    public void setUIManager(UIManager uiManager) {
+        this.uiManager = uiManager;
+        // Add an event handler to the pane to allow use of ENTER
+        pane.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleLoginButtonClicked();
+            }
+        });
 
-				// Execute the query
-				ResultSet resultSet = statement.executeQuery();
+        // Set up the color adjustment effect to make the eye darker
+        colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-0.5);
+    }
 
-				if (resultSet.next()) {
-					System.out.println("Login successful!");
+    /**
+     * Handles the login button click event.
+     */
+    @FXML
+    private void handleLoginButtonClicked() {
+        String email = emailField.getText();
+        String password = passwordField.getText();
 
-					// Open the games UI
-					uiManager.showGamesUI();
-				} else {
-					errorText.setText("Wrong Username or Password.");
-					System.out.println("Wrong Username or Password.");
-				}
+        if (email.isEmpty() || password.isEmpty()) {
+            System.out.println("Please enter both email and password.");
+            errorText.setText("Please enter both email and password.");
+        } else {
+            LoginManager.login(email, password, errorText);
+        }
+    }
 
-				// Close the statement and result set
-				statement.close();
-				resultSet.close();
-			} catch (SQLException e) {
-				System.err.println(e.getMessage());
-				errorText.setText("Oops! Something Went Wrong, Try again.");
-			}
-		}
-	}
+    /**
+     * Handles the sign up button click event.
+     */
+    @FXML
+    private void handleSignUpButtonClicked() {
+        uiManager.showSignUpUI();
+    }
 
-	@FXML
-	private void handleSignUpButtonClicked() {
-		uiManager.showSignUpUI();
-	}
-	
-	@FXML
-	private void showPassword() {
-		passwordField.setVisible(false);
-		clearTextPassword.setText(passwordField.getText());
-		clearTextPassword.setVisible(true);
+    /**
+     * Shows the password in clear text.
+     */
+    @FXML
+    private void showPassword() {
+        passwordField.setVisible(false);
+        clearTextPassword.setText(passwordField.getText());
+        clearTextPassword.setVisible(true);
         eye.setEffect(colorAdjust);
     }
-	@FXML
+
+    /**
+     * Hides the password.
+     */
+    @FXML
     private void hidePassword() {
-		clearTextPassword.setText("");
-		clearTextPassword.setVisible(false);
-		passwordField.setVisible(true);
-		eye.setEffect(null);
+        clearTextPassword.setText("");
+        clearTextPassword.setVisible(false);
+        passwordField.setVisible(true);
+        eye.setEffect(null);
     }
 
 }

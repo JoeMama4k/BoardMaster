@@ -7,8 +7,10 @@ module Project {
 
     opens application to javafx.graphics, javafx.fxml;
     opens application.controllers to javafx.fxml;
+    opens application.managers to javafx.fxml;
     opens application.controllers.games to javafx.fxml;
 
     exports application.controllers;
+    exports application.managers;
     exports application.controllers.games;
 }

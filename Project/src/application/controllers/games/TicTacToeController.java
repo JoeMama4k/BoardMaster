@@ -8,7 +8,8 @@ import javafx.scene.control.ButtonType;
 
 import javax.swing.JPanel;
 
-import application.UIManager;
+import application.managers.LogManager;
+import application.managers.UIManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -47,6 +48,9 @@ public class TicTacToeController {
 	private boolean fullBoard = false;
 	private boolean alreadyWon = false;
 
+	/**
+	 * Initializes the controller to handle moves.
+	 */
 	public void initialize() {
 		// Set up MouseClicked events for each cell
 		a1.setOnMouseClicked(event -> handleMove(a1, 0, 0));
@@ -60,11 +64,18 @@ public class TicTacToeController {
 		c3.setOnMouseClicked(event -> handleMove(c3, 2, 2));
 	}
 
+	/**
+	 * Handles a move by the player.
+	 * 
+	 * @param imageView the ImageView representing the cell clicked by the player
+	 * @param row       the row index of the cell
+	 * @param column    the column index of the cell
+	 */
 	private void handleMove(ImageView imageView, int row, int column) {
+
 		if (alreadyWon)
 			return;
 		if (!isPosAlreadyUsed(row, column)) {
-			//System.out.println("This position is already occupied. Choose another one.");
 			return;
 		}
 
@@ -75,6 +86,9 @@ public class TicTacToeController {
 			// Create an alert when a player wins
 			alreadyWon = true;
 			String message = fullBoard ? "Scratch!" : "Player " + currPlayer + " Wins";
+
+			LogManager.log(message);
+
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Winner");
 			alert.setHeaderText(null);
@@ -84,11 +98,11 @@ public class TicTacToeController {
 			ImageView thumbnail = new ImageView(getPlayerImage());
 			thumbnail.setFitWidth(imageView.getFitWidth());
 			thumbnail.setFitHeight(imageView.getFitHeight());
-			
+
 			alert.setGraphic(thumbnail);
 
 			alert.setContentText(message);
-			
+
 			// Create custom buttons
 			ButtonType goBackButton = new ButtonType("Go Back");
 			ButtonType playAgainButton = new ButtonType("Play Again");
@@ -112,6 +126,11 @@ public class TicTacToeController {
 		}
 	}
 
+	/**
+	 * Returns the Image representing the current player.
+	 * 
+	 * @return the Image representing the current player
+	 */
 	private javafx.scene.image.Image getPlayerImage() {
 		if (currPlayer == 'X') {
 			return new javafx.scene.image.Image(
@@ -122,14 +141,34 @@ public class TicTacToeController {
 		}
 	}
 
+	/**
+	 * Checks if the given position on the board is already used.
+	 * 
+	 * @param row    the row index of the position
+	 * @param column the column index of the position
+	 * @return true if the position is already used, false otherwise
+	 */
 	private boolean isPosAlreadyUsed(int row, int column) {
 		return board[row][column] == ' ';
 	}
 
+	/**
+	 * Checks if a winning line is formed on the board.
+	 * 
+	 * @param a the first character
+	 * @param b the second character
+	 * @param c the third character
+	 * @return true if a winning line is formed, false otherwise
+	 */
 	private boolean isWinningLine(char a, char b, char c) {
 		return a == b && b == c && a != ' ';
 	}
 
+	/**
+	 * Checks if there is a winning condition on the board.
+	 * 
+	 * @return true if there is a winning condition, false otherwise
+	 */
 	private boolean checkWin() {
 		for (int row = 0; row < 3; row++) {
 			if (isWinningLine(board[row][0], board[row][1], board[row][2])) {
@@ -157,11 +196,18 @@ public class TicTacToeController {
 		fullBoard = true;
 		return true;
 	}
-
+	
+	
+	/**
+     * Changes the current player.
+     */
 	private void changePlayer() {
 		currPlayer = (currPlayer == 'X' ? 'O' : 'X');
 	}
 
+	/**
+     * Goes back to the Games UI.
+     */
 	@FXML
 	private void goBack() {
 		uiManager.showGamesUI();
